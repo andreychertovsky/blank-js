@@ -209,20 +209,77 @@
 		}
 	});
 
+	// MISCELANOUS ------------------------------------------------------------
+	
 	function toArray(target) {
 		return Array.prototype.slice.call(target);
-	}
+	};
 
+	/**
+	 * Format message like a standart console.log do^ replaces %s, %d, %i marks with function argument
+	 * 
+	 * @param  {String} message Message
+	 * @param  {mixed}  value   Value for inserting into string
+	 * @return {String}         Formatted string
+	 */
 	function format (message, value) {
 		var values;
 
 		values  = toArray(arguments).slice(1);
-		message = message.replace(/%(s|i|d)/g, function(v) {
-			return values.length ? values.shift() : '-';
+		message = message.replace(/%(s|i|d|f)/g, function(v) {
+			var replace;
+			replace = format[v[1]](values.shift());
+			return values.length >= 0 ? replace : '-';
 		});
 
 		return message;
+	};
+
+	format.s = function(value) {
+		// TODO: decide to use JSON stringify or other function
+		return stringify(value);
+	};
+
+	format.d = format.s;
+
+	format.f = function(value) {
+		return parseFloat(value) + '';
+	};
+
+	format.i = function(value) {
+		return value;
+		return parseInt(value) + '';
+	};
+
+	function stringify(value) {
+		return value + '';
 	}
+
+	function columnize(string, length, pad) {
+		var result, slice;
+		result = [];
+		while (string.length) {
+			slice = string.substr(0, length);
+			result.push(slice);
+			string = string.substr(slice.length);
+		}
+
+		if (pad && slice.length < length) {
+			while(slice.length < length) {
+				slice += pad;
+			}
+			
+			result[result.length - 1] = slice;
+		}
+
+		return result.join('\n');
+	}
+
+	Blank.utils({
+		toArray   : toArray,
+		format    : format,
+		columnize : columnize
+	});
 
 	// SHORT HANDS ------------------------------------------------------------
 	
@@ -390,10 +447,18 @@
 
 		window.blank = Blank;
 		window._     = Blank;
+
+		stringify = function(value) {
+			return JSON.stringify(value, null, 4);
+		}
 	});
 
 	Blank.nodeJs(function(){
 		module.exports = Blank;
+
+		stringify = function(v) {
+			return require('util').inspect(v, true);
+		}
 	});
 
 })();
