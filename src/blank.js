@@ -268,17 +268,26 @@
 			while(slice.length < length) {
 				slice += pad;
 			}
-			
+
 			result[result.length - 1] = slice;
 		}
 
 		return result.join('\n');
+	};
+
+	function pad(str, length, pad) {
+		while(str.length < length) {
+			str += pad;
+		}
+
+		return str;
 	}
 
 	Blank.utils({
 		toArray   : toArray,
 		format    : format,
-		columnize : columnize
+		columnize : columnize,
+		pad       : pad
 	});
 
 	// SHORT HANDS ------------------------------------------------------------
