@@ -91,6 +91,14 @@
 		return a < b;
 	}
 
+	function isTrue(target) {
+		return target === true;
+	}
+
+	function isFalse(target) {
+		return target === false;
+	}
+
 	function Assert() {
 		var results;
 		results        = [];
@@ -136,6 +144,16 @@
 	Assert.prototype.isError = function(target, message) {
 		message = message || 'Is error';
 		this._result(isError(target), this.format(message, target));
+	};
+
+	Assert.prototype.isTrue = function(target, message) {
+		message = message || 'Is true';
+		this._result(isTrue(target), this.format(message, target));
+	};
+
+	Assert.prototype.isFalse = function(target, message) {
+		message = message || 'Is false';
+		this._result(isFalse(target), this.format(message, target));
 	};
 
 	Assert.prototype.isEqual = function(a, b, message) {
