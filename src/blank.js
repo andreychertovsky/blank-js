@@ -75,6 +75,126 @@
 		return isObject(target) && target instanceof Error;
 	};
 
+	function isEqual (a, b) {
+		return a == b;
+	}
+
+	function isNotEqual(a, b) {
+		return a != b;
+	}
+
+	function isGreater(a, b) {
+		return a > b;
+	}
+
+	function isLess(a, b) {
+		return a < b;
+	}
+
+	function Assert() {
+		var results;
+		results        = [];
+		results.total  = 0;
+		results.passed = 0;
+		results.missed = 0;
+		results.ok     = true;
+		results.fail   = false;
+
+		this.results = results;
+	};
+
+	Assert.prototype.isArray = function(target, message) {
+		message = message || '%s is array';
+		this._result(isArray(target), this.format(message, target));
+	};
+
+	Assert.prototype.isObject = function(target, message) {
+		message = message || 'Is object';
+		this._result(isObject(target), this.format(message, target));
+	};
+
+	Assert.prototype.isFunction = function(target, message) {
+		message = message || 'Is function';
+		this._result(isFunction(target), this.format(message, target));
+	};
+
+	Assert.prototype.isString = function(target, message) {
+		message = message || 'Is string';
+		this._result(isString(target), this.format(message, target));
+	};
+
+	Assert.prototype.isBoolean = function(target, message) {
+		message = message || 'Is boolean';
+		this._result(isBoolean(target), this.format(message, target));
+	};
+
+	Assert.prototype.isNumber = function(target, message) {
+		message = message || 'Is number';
+		this._result(isNumber(target), this.format(message, target));
+	};
+
+	Assert.prototype.isError = function(target, message) {
+		message = message || 'Is error';
+		this._result(isError(target), this.format(message, target));
+	};
+
+	Assert.prototype.isEqual = function(a, b, message) {
+		message = message || 'Is equal';
+		this._result(isEqual(a, b), this.format(message, a, b));
+	};
+
+	Assert.prototype.isNotEqual = function(a, b, message) {
+		message = message || 'Is not equal';
+		this._result(isNotEqual(a, b), this.format(message, a, b));
+	};
+
+	Assert.prototype.isGreater = function(a, b, message) {
+		message = message || '%d is greater then %d';
+		this._result(isGreater(a, b), this.format(message, a, b) );
+	};
+
+	Assert.prototype.isLess = function(a, b, message) {
+		message = message || '%d is less then %d';
+		this._result(isLess(a, b), this.format(message, a, b));
+	};
+
+	Assert.prototype.format = function(message, value) {
+		var values = toArray(arguments).slice(1).map(function(value){
+			return JSON.stringify(value, null);
+		});
+
+		values.unshift(message);
+		return format.apply(null, values);
+	};
+
+	Assert.prototype._result = function(result, message) {
+		this.results.total++;
+
+		if (result) {
+			this.results.passed++;
+		} else {
+			this.results.missed++;
+			this.results.ok   = false;
+			this.results.fail = true;
+		}
+
+		this.results.push({
+			result  : result,
+			message : message
+		});
+	}
+
+	function test(test, callback) {
+		var assert = new Assert();
+		test(assert);
+
+		if (typeof callback === 'function') {
+			callback(assert.results);
+		} else {
+			return assert.results;
+		}
+	}
+
 	Blank.define({
 		utils : {
 			isFunction : isFunction,
@@ -82,9 +202,27 @@
 			isArray    : isArray,
 			isBoolean  : isBoolean,
 			isNumber   : isNumber,
-			isError    : isError
+			isError    : isError,
+			isEqual    : isEqual,
+			isNotEqual : isNotEqual,
+			test       : test
 		}
 	});
+
+	function toArray(target) {
+		return Array.prototype.slice.call(target);
+	}
+
+	function format (message, value) {
+		var values;
+
+		values  = toArray(arguments).slice(1);
+		message = message.replace(/%(s|i|d)/g, function(v) {
+			return values.length ? values.shift() : '-';
+		});
+
+		return message;
+	}
 
 	// SHORT HANDS ------------------------------------------------------------
 	
