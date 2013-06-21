@@ -1,0 +1,26 @@
+{
+  "name": "blank-js",
+  "version": "0.1.0",
+  "description": "Common js functions library",
+  "main": "src/blank.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "node/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rumkin/blank-js.git"
+  },
+  "keywords": [
+    "library",
+    "framework",
+    "common"
+  ],
+  "author": "Pasha Rumkin <dev@rumk.in>",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/rumkin/blank-js/issues"
+  }
+}
