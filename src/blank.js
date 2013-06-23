@@ -488,4 +488,8 @@
 		}
 	});
 
+	if (typeof define === 'function') {
+		define(Blank);
+	}
+
 })();
