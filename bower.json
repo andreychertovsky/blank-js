@@ -1,0 +1,9 @@
+{
+  "name": "Blank.js",
+  "version": "0.1.0",
+  "main": "src/blank.js",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt"
+  ]
+}
