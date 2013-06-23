@@ -489,7 +489,7 @@
 	});
 
 	if (typeof define === 'function') {
-		define(Blank);
+		define(function(){ return Blank; });
 	}
 
 })();
