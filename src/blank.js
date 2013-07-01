@@ -487,4 +487,8 @@
 			return require('util').inspect(v, true);
 		}
 	});
+
+	if (typeof define === 'function') {
+		define(function(){ return Blank; });
+	}
 })();
