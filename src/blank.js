@@ -432,7 +432,7 @@
 			},
 
 			isNodeJs : function() {
-				return typeof process !== 'undefined' && process.title === 'node';
+				return typeof process !== 'undefined' && typeof module !== 'undefined' && module.exports;
 			},
 
 			nodeJs : function(version, callback) {
@@ -487,5 +487,4 @@
 			return require('util').inspect(v, true);
 		}
 	});
-
 })();
