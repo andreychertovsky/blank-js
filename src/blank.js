@@ -273,6 +273,13 @@
 		return value + '';
 	}
 
+	/**
+	 * Convert string to fixed size column
+	 * @param  {String}  string String to columnize
+	 * @param  {Number}  length Column length
+	 * @param  {Boolean} pad    Pad last line
+	 * @return {String}         String converted to column
+	 */
 	function columnize(string, length, pad) {
 		var result, slice;
 		result = [];
@@ -294,8 +301,16 @@
 	};
 
 	function pad(str, length, pad) {
-		while(str.length < length) {
-			str += pad;
+		str = str + '';
+		if (length > 0) {
+			while(str.length < length) {
+				str += pad;
+			}
+		} else if (length < 0) {
+			length *= -1;
+			while(str.length < length) {
+				str = pad + str;
+			}
 		}
 
 		return str;
