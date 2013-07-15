@@ -231,22 +231,23 @@
 	function ProtoObject () {}
 
 	ProtoObject.prototype.super = function(target, method, args) {
-		return target[method].apply(this, args);
+		return target.prototype[method].apply(this, args);
 	};
 
 	ProtoObject.extend = function(source) {
 		var fn, parent;
 		parent = this;
+
 		if ( ! source.hasOwnProperty('constructor')) {
 			fn = function() {
-				this.super(parent, 'constructor', arguments);
+				parent.apply(this, arguments);
 			}
 		} else {
 			fn = source.constructor;
 			delete source.constructor;
 		}
 
-		source.prototype.__proto__ = this.prototype;
+		fn.prototype.__proto__ = this.prototype;
 		extend(fn.prototype, this.prototype, source);
 		extend(fn, this);
 
@@ -256,7 +257,7 @@
 	Blank.util('Proto', ProtoObject);
 
 	Blank.util('classify', function(source) {
-		return ProtoObject.extend(source)
+		return ProtoObject.extend(source);
 	});
 	
 
