@@ -227,6 +227,38 @@
 		}
 	});
 
+	// OOPize -----------------------------------------------------------------
+	function ProtoObject () {}
+
+	ProtoObject.prototype.super = function(target, method, args) {
+		return target[method].apply(this, args);
+	};
+
+	ProtoObject.extend = function(source) {
+		var fn, parent;
+		parent = this;
+		if ( ! source.hasOwnProperty('constructor')) {
+			fn = function() {
+				this.super(parent, 'constructor', arguments);
+			}
+		} else {
+			fn = source.constructor;
+		}
+
+		source.prototype.__proto__ = this.prototype;
+		extend(fn.prototype, this.prototype, object);
+		extend(fn, this);
+
+		return fn;
+	};
+
+	Blank.util('proto', ProtoObject);
+
+	Blank.util('classify', function(source) {
+		return ProtoObject.extend(source)
+	});
+	
+
 	// MISCELANOUS ------------------------------------------------------------
 	
 	function toArray(target) {
@@ -314,13 +346,50 @@
 		}
 
 		return str;
-	}
+	};
+
+	/**
+	 * Create callback nodejs-express-like queue
+	 * @param  {Array}        args  Arguments passed to callbacks
+	 * @param  {Array}        queue Callbacks queue
+	 * @param  {Error|null}   err   Error object
+	 */
+	function next(args, queue, err) {
+		queue = queue.slice();
+		args  = (args || []).slice();
+
+		var callback;
+		
+		if (err) {
+			// Search first callback which has 4 arguments: err, req, res, next
+			while (queue.length) {
+				callback = queue.shift();
+				if (callback.length < args.length + 2) {
+					continue;
+				}
+
+				callback.apply(null, [err].concat(args, next.bind(null, args, queue)));
+			}
+		} else {
+			callback = queue.shift();
+			if ( ! callback) return;
+
+			if (callback.length < args.length + 2) {
+				callback.apply(null, [].concat(args, next.bind(null, args, queue)));
+			} else {
+				callback.apply(null, [null].concat(args, next.bind(null, args, queue)));
+			}
+		}
+	};
 
 	Blank.utils({
 		toArray   : toArray,
 		format    : format,
 		columnize : columnize,
-		pad       : pad
+		pad       : pad,
+		queues    : {
+			nextCall : next
+		}
 	});
 
 	// SHORT HANDS ------------------------------------------------------------
