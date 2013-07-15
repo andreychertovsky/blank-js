@@ -243,6 +243,7 @@
 			}
 		} else {
 			fn = source.constructor;
+			delete source.constructor;
 		}
 
 		source.prototype.__proto__ = this.prototype;
@@ -252,7 +253,7 @@
 		return fn;
 	};
 
-	Blank.util('proto', ProtoObject);
+	Blank.util('Proto', ProtoObject);
 
 	Blank.util('classify', function(source) {
 		return ProtoObject.extend(source)
