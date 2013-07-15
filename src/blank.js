@@ -247,7 +247,7 @@
 		}
 
 		source.prototype.__proto__ = this.prototype;
-		extend(fn.prototype, this.prototype, object);
+		extend(fn.prototype, this.prototype, source);
 		extend(fn, this);
 
 		return fn;
