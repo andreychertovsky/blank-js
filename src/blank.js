@@ -59,6 +59,14 @@
 		return typeof(target) === 'string';
 	};
 
+	function isEmptyString(target) {
+		return isString(target) && ! target.length;
+	}
+
+	function isNotEmptyString(target) {
+		return isString(target) && target.length;
+	}
+
 	function isBoolean(target) {
 		return typeof(target) === 'boolean';
 	};
@@ -215,14 +223,21 @@
 
 	Blank.define({
 		utils : {
-			isFunction : isFunction,
-			isObject   : isObject,
 			isArray    : isArray,
 			isBoolean  : isBoolean,
+			isFunction : isFunction,
+			isObject   : isObject,
 			isNumber   : isNumber,
+			isString   : isString,
+			isEmptyString    : isEmptyString,
+			isNotEmptyString : isNotEmptyString,
 			isError    : isError,
 			isEqual    : isEqual,
 			isNotEqual : isNotEqual,
+			isLess     : isLess,
+			isGreater  : isGreater,
+			isTrue     : isTrue,
+			isFalse    : isFalse,
 			test       : test
 		}
 	});
