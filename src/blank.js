@@ -471,9 +471,34 @@
 		return target;
 	}
 
+	/**
+	 * Get properties from object and set to new object
+	 * @param  {Object}       source Source object
+	 * @param  {Array|string} keys   Object keys
+	 * @return {Object}              Object with defined properties
+	 */
+	function extract(source, keys) {
+		if ( ! isArray(keys)) {
+			keys = toArray(arguments).slice(2);
+		}
+
+		var key, index, length, target;
+		target = {};
+		index  = -1;
+		length = keys.length;
+
+		while (++index < length) {
+			key = keys[index];
+			target[key] = source[key];
+		}
+
+		return target;
+	}
+
 	Blank.utils({
-		extend : extend,
-		merge  : merge
+		extend  : extend,
+		merge   : merge,
+		extract : extract
 	});
 
 	Blank.method('extend', function(source) {
