@@ -495,10 +495,35 @@
 		return target;
 	}
 
+	/**
+	 * Get properties from source object and set to target object
+	 * @param  {Object}       target Target object
+	 * @param  {Object}       source Source object
+	 * @param  {Array|string} keys   Object keys
+	 * @return {Object}              Object with defined properties
+	 */
+	function implant(target, source, keys) {
+		if ( ! isArray(keys)) {
+			keys = toArray(arguments).slice(3);
+		}
+
+		var key, index, length;
+		index  = -1;
+		length = keys.length;
+
+		while (++index < length) {
+			key = keys[index];
+			target[key] = source[key];
+		}
+
+		return target;
+	}
+
 	Blank.utils({
 		extend  : extend,
 		merge   : merge,
-		extract : extract
+		extract : extract,
+		implant : implant
 	});
 
 	Blank.method('extend', function(source) {
