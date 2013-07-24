@@ -366,6 +366,24 @@
 	};
 
 	/**
+	 * Convert string first char to upper case
+	 * @param  {String} string String to convert
+	 * @return {String}        Converted string
+	 */
+	function toUpperCaseFirst(string) {
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	}
+
+	/**
+	 * Convert strings first char to lower case
+	 * @param  {String} string String to convert
+	 * @return {String}        Converted string
+	 */
+	function toLowerCaseFirst(string) {
+		return string.charAt(0).toLowerCase() + string.slice(1);
+	}
+
+	/**
 	 * Create callback nodejs-express-like queue
 	 * @param  {Array}        args  Arguments passed to callbacks
 	 * @param  {Array}        queue Callbacks queue
@@ -404,8 +422,10 @@
 		format    : format,
 		columnize : columnize,
 		pad       : pad,
+		toUpperCaseFirst : toUpperCaseFirst,
+		toLowerCaseFirst : toLowerCaseFirst,
 		queues    : {
-			nextCall : next
+			next : next
 		}
 	});
 
