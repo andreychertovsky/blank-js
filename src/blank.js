@@ -275,6 +275,14 @@
 		return ProtoObject.extend(source);
 	});
 	
+	// ARRAY METHODS ----------------------------------------------------------
+	
+	function randomItem(target) {
+		if ( ! target.length) return;
+		return target[Math.round(Math.random() * (target.length - 1))];
+	}
+
+	Blank.util('randomItem', randomItem);
 
 	// MISCELANOUS ------------------------------------------------------------
 	
