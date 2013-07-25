@@ -282,6 +282,10 @@
 		return Array.prototype.slice.call(target);
 	};
 
+	function toNumber(target) {
+		return target|0;
+	};
+
 	/**
 	 * Format message like a standart console.log do^ replaces %s, %d, %i marks with function argument
 	 * 
@@ -419,6 +423,7 @@
 
 	Blank.utils({
 		toArray   : toArray,
+		toNumber  : toNumber,
 		format    : format,
 		columnize : columnize,
 		pad       : pad,
