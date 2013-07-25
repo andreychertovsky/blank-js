@@ -324,12 +324,22 @@
 		return result;
 	}
 
+	function firstItem (target) {
+		return target.length ? target[0] : undefined;
+	}
+
+	function lastItem (target) {
+		return target.length ? target[target.length - 1] : undefined;
+	}
+
 	Blank.utils({
 		randomItem : randomItem,
 		all : all,
 		any : any,
 		firstOf : firstOf,
-		lastOf  : lastOf
+		lastOf  : lastOf,
+		firstItem : firstItem,
+		lastItem  : lastItem
 	});
 
 	// MISCELANOUS ------------------------------------------------------------
