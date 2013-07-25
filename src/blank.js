@@ -282,7 +282,55 @@
 		return target[Math.round(Math.random() * (target.length - 1))];
 	}
 
-	Blank.util('randomItem', randomItem);
+	function all(target, filter) {
+		return target.filter(filter).length > 0;
+	}
+
+	function any(target, filter) {
+		var index, length;
+		index  = -1;
+		length = target.length;
+
+		while (++index < length) {
+			if (filter(target[index], index)) return true;
+		}
+
+		return false;
+	}
+
+	function firstOf(target, filter) {
+		var index, length;
+		index  = -1;
+		length = target.length;
+
+		while (++index < length) {
+			if (filter(target[index], index)) return target[index];
+		}
+		
+		return;
+	}
+
+	function lastOf(target, filter) {
+		var index, length, result;
+		index  = -1;
+		length = target.length;
+
+		while (++index < length) {
+			if (filter(target[index], index)) {
+				result = target[index];
+			}
+		}
+		
+		return result;
+	}
+
+	Blank.utils({
+		randomItem : randomItem,
+		all : all,
+		any : any,
+		firstOf : firstOf,
+		lastOf  : lastOf
+	});
 
 	// MISCELANOUS ------------------------------------------------------------
 	
