@@ -79,6 +79,14 @@
 		return isObject(target) && target instanceof Array;
 	};
 
+	function isEmptyArray(target) {
+		return isArray(target) && target.length < 1;
+	}
+
+	function isNotEmptyArray(target) {
+		return isArray(target) && target.length > 0;
+	}
+
 	function isError(target) {
 		return isObject(target) && target instanceof Error;
 	};
@@ -105,6 +113,20 @@
 
 	function isFalse(target) {
 		return target === false;
+	}
+
+	function isEmpty(target) {
+		if (isArray(target) || isString(target)) {
+			return target.length > 0
+		} else if (isObject(target)) {
+			return Object.getOwnPropertyNames(target).length > 0;
+		} else {
+			return undefined;
+		}
+	}
+
+	function isNotEmpty (target) {
+		return ! isEmpty(target);
 	}
 
 	function Assert() {
@@ -224,6 +246,8 @@
 	Blank.define({
 		utils : {
 			isArray    : isArray,
+			isEmptyArray    : isEmptyArray,
+			isNotEmptyArray : isNotEmptyArray,
 			isBoolean  : isBoolean,
 			isFunction : isFunction,
 			isObject   : isObject,
@@ -238,6 +262,8 @@
 			isGreater  : isGreater,
 			isTrue     : isTrue,
 			isFalse    : isFalse,
+			isEmpty    : isEmpty,
+			isNotEmpty : isNotEmpty,
 			test       : test
 		}
 	});
