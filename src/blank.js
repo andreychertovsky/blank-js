@@ -543,6 +543,28 @@
 	};
 
 	/**
+	 * Intersect two or mode objects by properties
+	 * @param  {Object} target Target to set intersected values
+	 * @param  {Object} source Source to get intersected values
+	 * @return {Object}        Target object
+	 */
+	function intersect(target, source) {
+		var sources, index, length, prop;
+		sources = Array.prototype.slice.call(arguments, 1);
+		index   = -1;
+		length  = sources.length;
+		while (++index < length) {
+			source = sources.length;
+			for (prop in source) {
+				if (target.hasOwnProperty(prop) && source.hasOwnProperty(prop)) {
+					target[prop] = source[prop];
+				}
+			}
+		}
+		return target;
+	}
+
+	/**
 	 * Merge objects and use strategy for conflicts
 	 * 
 	 * @param  {Object}   target   Target to merge in
@@ -637,10 +659,11 @@
 	}
 
 	Blank.utils({
-		extend  : extend,
-		merge   : merge,
-		extract : extract,
-		implant : implant
+		extend    : extend,
+		intersect : intersect,
+		merge     : merge,
+		extract   : extract,
+		implant   : implant
 	});
 
 	Blank.method('extend', function(source) {
