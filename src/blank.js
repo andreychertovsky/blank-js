@@ -468,7 +468,7 @@
 	 */
 	function toUpperCaseFirst(string) {
 		return string.charAt(0).toUpperCase() + string.slice(1);
-	}
+	};
 
 	/**
 	 * Convert strings first char to lower case
@@ -477,8 +477,35 @@
 	 */
 	function toLowerCaseFirst(string) {
 		return string.charAt(0).toLowerCase() + string.slice(1);
+	};
+
+	/**
+	 * Convert string to camel-cased format
+	 * @param  {String} string String to convert
+	 * @param  {RegExp} regex  Delimiter regex. Optional. Remember about g-modificator!
+	 * @return {String}        Camel cased string
+	 */
+	function toCamelCase(string, regex) {
+		string = string  + '';
+		regex = regex || /\W([A-Z])/g
+		return string.replace(regex, function(match, letter) {
+			return letter.toUpperCase();
+		});
 	}
 
+	Blank.utils({
+		toArray   : toArray,
+		toNumber  : toNumber,
+		format    : format,
+		columnize : columnize,
+		pad       : pad,
+		toCamelCase : toCamelCase,
+		toUpperCaseFirst : toUpperCaseFirst,
+		toLowerCaseFirst : toLowerCaseFirst,
+	});
+
+	// QUEUES -----------------------------------------------------------------
+	
 	/**
 	 * Create callback nodejs-express-like queue
 	 * @param  {Array}        args  Arguments passed to callbacks
@@ -514,13 +541,6 @@
 	};
 
 	Blank.utils({
-		toArray   : toArray,
-		toNumber  : toNumber,
-		format    : format,
-		columnize : columnize,
-		pad       : pad,
-		toUpperCaseFirst : toUpperCaseFirst,
-		toLowerCaseFirst : toLowerCaseFirst,
 		queues    : {
 			next : next
 		}
