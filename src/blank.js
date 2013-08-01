@@ -665,6 +665,23 @@
 	};
 
 	/**
+	 * Extend one object with another but excluding special properties
+	 * @param  {Object} target  Target object
+	 * @param  {Object} source  Source object
+	 * @param  {Array}  exclude Excluded keys
+	 * @return {Object}         Target object
+	 */
+	function without(target, source, exclude) {
+		var prop;
+		for (prop in source) {
+			if (source.hasOwnProperty(prop) && exclude.indexOf(prop) < 0) {
+				target[prop] = source[prop];
+			}
+		}
+		return target;
+	};
+
+	/**
 	 * Mix one prototype into other
 	 * @param  {Function} target Target function
 	 * @param  {Function} source Source function
@@ -694,6 +711,7 @@
 		merge   : merge,
 		extract : extract,
 		implant : implant,
+		without : without,
 		mixin   : mixin
 	});
 
