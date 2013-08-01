@@ -662,6 +662,30 @@
 		}
 
 		return target;
+	};
+
+	/**
+	 * Mix one prototype into other
+	 * @param  {Function} target Target function
+	 * @param  {Function} source Source function
+	 * @return {Function}        Target function
+	 */
+	function mixin (target, source) {
+		var sources, index, length, prop;
+		// Grab all arguments as sources
+		sources = Array.prototype.slice.call(arguments, 1);
+		index   = -1;
+		length  = sources.length;
+		// Iterate sources
+		while (++index < length) {
+			source = sources[index];
+			for (prop in source.prototype) {
+				if (source.prototype.hasOwnProperty(prop)) {
+					target.prototype[prop] = source.prototype[prop];
+				}
+			}
+		}
+		return target;
 	}
 
 	Blank.utils({
@@ -669,7 +693,8 @@
 		extendDeep : extendDeep,
 		merge   : merge,
 		extract : extract,
-		implant : implant
+		implant : implant,
+		mixin   : mixin
 	});
 
 	Blank.method('extend', function(source) {
