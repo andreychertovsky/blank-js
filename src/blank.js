@@ -492,7 +492,7 @@
 			return letter.toUpperCase();
 		});
 	};
-	
+
 	/**
 	 * Create callback nodejs-express-like queue
 	 * @param  {Array}        args  Arguments passed to callbacks
@@ -535,6 +535,7 @@
 		pad       : pad,
 		toUpperCaseFirst : toUpperCaseFirst,
 		toLowerCaseFirst : toLowerCaseFirst,
+		toCamelCase : toCamelCase,
 		queues    : {
 			next : next
 		}
