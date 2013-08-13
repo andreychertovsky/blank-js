@@ -619,7 +619,7 @@
 			for(prop in source) {
 				if (source.hasOwnProperty(prop)) {
 					value = source[prop];
-					if (target.hasOwnProperty(prop) && typeof value === 'object') {
+					if (target.hasOwnProperty(prop) && typeof value === 'object' && value instanceof Array === false) {
 						extendDeep(target[prop], value);
 					} else {
 						target[prop] = value;
