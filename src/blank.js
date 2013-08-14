@@ -487,7 +487,7 @@
 	 */
 	function toCamelCase(string, regex) {
 		string = string  + '';
-		regex = regex || /\W([A-Z])/g
+		regex = regex || /\W([A-z])/g
 		return string.replace(regex, function(match, letter) {
 			return letter.toUpperCase();
 		});
