@@ -115,6 +115,22 @@
 		return target === false;
 	}
 
+	function isNotTrue(target) {
+		return target !== true;
+	}
+
+	function isNotFalse(target) {
+		return target !== false;
+	}
+
+	function isUndefined(target) {
+		return target === undefined;
+	}
+
+	function isNotUndefined(target) {
+		return target !== undefined;
+	}
+
 	function isEmpty(target) {
 		if (isArray(target) || isString(target)) {
 			return target.length > 0
@@ -261,6 +277,8 @@
 			isLess     : isLess,
 			isGreater  : isGreater,
 			isTrue     : isTrue,
+			isNotTrue  : isNotTrue,
+			isNotFalse : isNotFalse,
 			isFalse    : isFalse,
 			isEmpty    : isEmpty,
 			isNotEmpty : isNotEmpty,
@@ -341,11 +359,7 @@
 		index  = -1;
 		length = target.length;
 
-		while (++index < length) {
-			if (filter(target[index], index)) {
-				result = target[index];
-			}
-		}
+		result = target.filter(filter).pop();
 		
 		return result;
 	}
