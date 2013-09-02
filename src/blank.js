@@ -371,7 +371,12 @@
 	function lastItem (target) {
 		return target.length ? target[target.length - 1] : undefined;
 	}
-
+	/**
+	 * Check if any item from source array exists in target
+	 * @param  {Array}   target Search in
+	 * @param  {Array}   source Search from
+	 * @return {Boolean}        Returns true if any match found
+	 */
 	function hasAny(target, source) {
 		var index  = -1;
 		var length = source.length;
@@ -379,6 +384,19 @@
 			if (target.indexOf(source[index]) > -1) return true;
 		}
 		return false;
+	}
+
+	function pluck(target, field) {
+		var result = [];
+		var index  = -1;
+		var length = target.length;
+		var item;
+
+		while(++index < length) {
+			item = target[index];
+			result.push(item[field]);
+		};
+		return result;
 	}
 
 	Blank.utils({
@@ -389,7 +407,8 @@
 		lastOf  : lastOf,
 		firstItem : firstItem,
 		lastItem  : lastItem,
-		hasAny : hasAny
+		hasAny : hasAny,
+		pluck  : pluck
 	});
 
 	// MISCELANOUS ------------------------------------------------------------
