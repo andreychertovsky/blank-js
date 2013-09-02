@@ -372,6 +372,15 @@
 		return target.length ? target[target.length - 1] : undefined;
 	}
 
+	function hasAny(target, source) {
+		var index  = -1;
+		var length = source.length;
+		while (++index < length) {
+			if (target.indexOf(source[index]) > -1) return true;
+		}
+		return false;
+	}
+
 	Blank.utils({
 		randomItem : randomItem,
 		all : all,
@@ -379,7 +388,8 @@
 		firstOf : firstOf,
 		lastOf  : lastOf,
 		firstItem : firstItem,
-		lastItem  : lastItem
+		lastItem  : lastItem,
+		hasAny : hasAny
 	});
 
 	// MISCELANOUS ------------------------------------------------------------
