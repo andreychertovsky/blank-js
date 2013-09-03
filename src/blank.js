@@ -421,7 +421,7 @@
 		lastItem  : lastItem,
 		hasAny : hasAny,
 		pluck  : pluck,
-		indexBy : indexBy
+		indexBy : indexBy,
 		index : function() {
 			console.log('Index function is deprecated use indexBy:', (new Error).stack);
 			return indexBy.apply(null, arguments);
