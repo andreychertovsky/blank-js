@@ -399,6 +399,18 @@
 		return result;
 	}
 
+	function indexBy(target, field) {
+		var result = {};
+		var index = -1;
+		var length = target.length;
+		var item;
+		while (++index < length) {
+			item = target[index];
+			result[item[field]] = item;
+		}
+		return result;
+	}
+
 	Blank.utils({
 		randomItem : randomItem,
 		all : all,
@@ -408,7 +420,12 @@
 		firstItem : firstItem,
 		lastItem  : lastItem,
 		hasAny : hasAny,
-		pluck  : pluck
+		pluck  : pluck,
+		indexBy : indexBy
+		index : function() {
+			console.log('Index function is deprecated use indexBy:', (new Error).stack);
+			return indexBy.apply(null, arguments);
+		}
 	});
 
 	// MISCELANOUS ------------------------------------------------------------
