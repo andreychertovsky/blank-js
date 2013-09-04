@@ -282,6 +282,9 @@
 			isFalse    : isFalse,
 			isEmpty    : isEmpty,
 			isNotEmpty : isNotEmpty,
+			isUndefined : isUndefined,
+			isNotUndefined : isNotUndefined,
+			isDefined      : isNotUndefined
 			test       : test
 		}
 	});
