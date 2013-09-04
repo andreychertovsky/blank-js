@@ -145,6 +145,10 @@
 		return ! isEmpty(target);
 	}
 
+	function hasProperty (target, property) {
+		return isObject(target) && typeof target[property] !== 'undefined';
+	}
+
 	function Assert() {
 		var results;
 		results        = [];
@@ -284,7 +288,8 @@
 			isNotEmpty : isNotEmpty,
 			isUndefined : isUndefined,
 			isNotUndefined : isNotUndefined,
-			isDefined      : isNotUndefined
+			isDefined      : isNotUndefined,
+			hasProperty    : hasProperty,
 			test       : test
 		}
 	});
