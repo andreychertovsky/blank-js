@@ -419,18 +419,33 @@
 		return result;
 	}
 
+	function unique(target) {
+		var unique = [];
+		var index  = -1;
+		var length = target.length;
+		var value;
+		while(++index < length){
+			value = target[index];
+			if (unique.indexOf(value) < 0) {
+				unique.push(value);
+			}
+		}
+		return unique;
+	}
+
 	Blank.utils({
 		randomItem : randomItem,
-		all : all,
-		any : any,
-		firstOf : firstOf,
-		lastOf  : lastOf,
-		firstItem : firstItem,
-		lastItem  : lastItem,
-		hasAny : hasAny,
-		pluck  : pluck,
-		indexBy : indexBy,
-		index : function() {
+		all        : all,
+		any        : any,
+		firstOf    : firstOf,
+		lastOf     : lastOf,
+		firstItem  : firstItem,
+		lastItem   : lastItem,
+		hasAny     : hasAny,
+		pluck      : pluck,
+		indexBy    : indexBy,
+		unique     : unique,
+		index      : function() {
 			console.log('Index function is deprecated use indexBy:', (new Error).stack);
 			return indexBy.apply(null, arguments);
 		}
