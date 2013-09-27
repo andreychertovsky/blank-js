@@ -1,4 +1,4 @@
-less(function(){
+(function(){
 	var _;
 
 	function Blank (target) {
