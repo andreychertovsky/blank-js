@@ -360,7 +360,7 @@
 		var index = -1;
 		var length = target.length;
 		while(++index < length) {
-			if (callback(index[item], index) !== false) {
+			if (callback(target[index], index) !== false) {
 				return index;
 			}
 		}
