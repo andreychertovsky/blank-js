@@ -1,4 +1,4 @@
-(function(){
+less(function(){
 	var _;
 
 	function Blank (target) {
@@ -350,6 +350,24 @@
 		return false;
 	}
 
+	/**
+	 * Search an item with callback
+	 * @param  {Array}    target   Array to search in
+	 * @param  {Function} callback Search callback
+	 * @return {Number}            Return index when callback returns not false the first time
+	 */
+	function search(target, callback) {
+		var index = -1;
+		var length = target.length;
+		while(++index < length) {
+			if (callback(index[item], index) !== false) {
+				return index;
+			}
+		}
+
+		return -1;
+	}
+
 	function firstOf(target, filter) {
 		var index, length;
 		index  = -1;
@@ -437,6 +455,7 @@
 		randomItem : randomItem,
 		all        : all,
 		any        : any,
+		search     : search,
 		firstOf    : firstOf,
 		lastOf     : lastOf,
 		firstItem  : firstItem,
