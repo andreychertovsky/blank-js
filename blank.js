@@ -437,6 +437,22 @@
 		return result;
 	}
 
+	function groupBy(target, field) {
+		var result = {};
+		var index = -1;
+		var length = target.length;
+		var item, value;
+		while (++index < length) {
+			item = target[index];
+			value = item[field];
+			if ( ! result.hasOwnProperty(value)) {
+				result[value] = [];
+			}
+			result[value].push(item);
+		}
+		return result;	
+	}
+
 	function unique(target) {
 		var unique = [];
 		var index  = -1;
@@ -463,6 +479,7 @@
 		hasAny     : hasAny,
 		pluck      : pluck,
 		indexBy    : indexBy,
+		groupBy    : groupBy,
 		unique     : unique,
 		index      : function() {
 			console.log('Index function is deprecated use indexBy:', (new Error).stack);

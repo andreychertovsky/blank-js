@@ -1,6 +1,6 @@
 {
   "name": "blank-js",
-  "version": "0.1.21",
+  "version": "0.1.22",
   "description": "Common js functions library",
   "main": "blank.js",
   "directories": {
